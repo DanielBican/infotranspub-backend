@@ -18,6 +18,18 @@ DirectionType, TransportType
 
 -- The order of the drop is : first index, second table, third sequence
 
+DROP INDEX IF EXISTS I_Frequencies;
+DROP TABLE IF EXISTS T_Frequencies;
+DROP SEQUENCE S_Frequencies;
+
+DROP INDEX IF EXISTS I_Calendar;
+DROP TABLE IF EXISTS T_Calendar;
+DROP SEQUENCE S_Calendar;
+
+DROP INDEX IF EXISTS I_Shapes;
+DROP TABLE IF EXISTS T_Shapes;
+DROP SEQUENCE S_Shapes;
+
 DROP INDEX IF EXISTS I_Stops;
 DROP TABLE IF EXISTS T_Stops;
 DROP SEQUENCE S_Stops;

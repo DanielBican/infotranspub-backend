@@ -1,4 +1,4 @@
-
+-- T_Stops
 INSERT INTO T_Stops(
     stop_id,
     code,
@@ -27,3 +27,42 @@ INSERT INTO T_Stops(
     wheelchair_boarding
     from tmp_stops;
 
+
+INSERT INTO T_Calendar(
+gtfs_service_id,
+monday,
+tuesday,
+wednesday,
+thursday,
+friday,
+saturday,
+sunday		
+)
+SELECT
+service_id,
+monday,
+tuesday,
+wednesday,
+thursday,
+friday,
+saturday,
+sunday		
+FROM
+TMP_Calendar;
+
+
+INSERT INTO T_Frequencies (
+gtfs_trip_id,
+start_time,
+end_time,
+headway_secs,
+exact_times
+) 
+SELECT
+trip_id,
+start_time,
+end_time,
+headway_secs,
+exact_times
+FROM
+TMP_Frequencies;

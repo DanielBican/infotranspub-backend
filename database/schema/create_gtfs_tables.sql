@@ -1,4 +1,5 @@
 /*
+agency-ok,calendar-ok,calendar_dates,fare_attributes,fare_rules,feed_info,routes-ok,frequencies-ok,shapes-ok,stops-ok,stop_times,transfers,trips-ok
 Order of creation 
 DirectionType, TransportType = referenced by other tables
 City, Agency
@@ -6,8 +7,14 @@ CityAgency
 Route
 Trips
 Stops
+Shapes
+Calendar
+Frequencies
 
 Drop order
+Frequencies
+Calendar
+Shapes
 Stops
 Trips
 Route
@@ -147,3 +154,58 @@ CREATE UNIQUE INDEX I_Stops ON T_Stops (id, name, code);
 ALTER TABLE T_Stops ALTER COLUMN id SET DEFAULT nextval('S_Stops') ;
 
 
+
+CREATE SEQUENCE S_Shapes INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Shapes(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	gtfs_shape_id	text		NOT 	NULL, 	-- GTFS:shape_id
+	pt_lat		text		NOT	NULL, -- GTFS shape_pt_lat
+	pt_lon		text		NOT	NULL, -- GTFS shape_pt_lon
+	pt_sequence	text		NOT	NULL, -- GTFS shape_pt_sequence
+	dist_traveled	text			NULL -- GTFS shape_dist_traveled
+);
+
+
+
+CREATE UNIQUE INDEX I_Shapes ON T_Shapes (id, gtfs_shape_id);
+ALTER TABLE T_Shapes ALTER COLUMN id SET DEFAULT nextval('S_Shapes') ;
+
+
+CREATE SEQUENCE S_Calendar INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Calendar(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	gtfs_service_id	text		NOT 	NULL, 	-- GTFS:service_id
+	monday		text		NOT	NULL, -- GTFS : monday
+	tuesday		text		NOT	NULL, -- GTFS : tuesday
+	wednesday	text		NOT	NULL, -- GTFS : wednesday
+	thursday	text		NOT	NULL, -- GTFS : thursday
+	friday		text		NOT	NULL, -- GTFS : friday
+	saturday	text		NOT	NULL, -- GTFS : saturday
+	sunday		text		NOT	NULL  -- GTFS : sunday
+);
+
+
+
+CREATE UNIQUE INDEX I_Calendar ON T_Calendar (id, gtfs_service_id);
+ALTER TABLE T_Calendar ALTER COLUMN id SET DEFAULT nextval('S_Calendar') ;
+
+CREATE SEQUENCE S_Frequencies INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Frequencies(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	gtfs_trip_id	text		NOT 	NULL, 	-- GTFS:trip_id
+	start_time	text		NOT	NULL, 
+	end_time	text		NOT	NULL, 
+	headway_secs	text		NOT	NULL, 
+	exact_times	text		NOT	NULL 
+);
+
+
+
+CREATE UNIQUE INDEX I_Frequencies ON T_Frequencies (id, gtfs_trip_id);
+ALTER TABLE T_Frequencies ALTER COLUMN id SET DEFAULT nextval('S_Frequencies') ;
